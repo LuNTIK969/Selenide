@@ -78,7 +78,7 @@ public class AppCardDeliveryTest {
 
     @Test
     void shouldNotSendIfCityInEnglish() {
-        String date = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        String date = LocalDate.now().plusDays(5).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 
         $("[data-test-id='city'] input").setValue("Petropavlovsk-Kamchatsky");
         $("[data-test-id='date'] input").setValue(date);
@@ -121,7 +121,7 @@ public class AppCardDeliveryTest {
 
     @Test
     void shouldSendDoubleName() {
-        String date = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        String date = LocalDate.now().plusDays(4).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 
         $("[data-test-id='city'] input").setValue("Москва");
         $("[data-test-id='date'] input").setValue(date);
@@ -151,7 +151,7 @@ public class AppCardDeliveryTest {
 
     @Test
     void shouldSendWithLowercaseName() {
-        String date = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        String date = LocalDate.now().plusDays(4).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 
         $("[data-test-id='city'] input").setValue("Москва");
         $("[data-test-id='date'] input").setValue(date);
