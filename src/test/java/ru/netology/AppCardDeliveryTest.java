@@ -329,7 +329,6 @@ public class AppCardDeliveryTest {
 //        $(".calendar-input__custom-control input").click();
 //        $("[data-day=" + "'"+megaDate+"'" + "]").click();
 
-        $("[data-test-id='date'] input").doubleClick().sendKeys(Keys.DELETE);
         $("[data-test-id='date'] button").click();
         LocalDate selected = LocalDate.now().plusDays(3);
         LocalDate required = LocalDate.now().plusDays(7);
