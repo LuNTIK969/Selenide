@@ -194,22 +194,20 @@ public class AppCardDeliveryTest {
                 .shouldHave(text("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы."));
     }
 
-    // Тест валится. Закомментированно с целью прохождения CI и получения зелёной галочки, как того требуют условия сдачи задания.
-    // Issue написан.
-//    @Test
-//    void shouldSendWithYo() {
-//        String date = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-//
-//        $("[data-test-id='city'] input").setValue("Москва");
-//        $("[data-test-id='date'] input").setValue(date);
-//        $("[data-test-id='name'] input").setValue("Свиридов Пётр");
-//        $("[data-test-id='phone'] input").setValue("+79699699696");
-//        $("[data-test-id='agreement'] span").click();
-//        $x("//*[contains(text(), 'Забронировать')]").click();
-//        $("[data-test-id='notification'] .notification__content")
-//                .shouldBe(visible, Duration.ofSeconds(15))
-//                .should(exactText("Встреча успешно забронирована на " + date));
-//    }
+   @Test
+   void shouldSendWithYo() {
+       String date = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+
+       $("[data-test-id='city'] input").setValue("Москва");
+       $("[data-test-id='date'] input").setValue(date);
+       $("[data-test-id='name'] input").setValue("Свиридов Пётр");
+       $("[data-test-id='phone'] input").setValue("+79699699696");
+       $("[data-test-id='agreement'] span").click();
+       $x("//*[contains(text(), 'Забронировать')]").click();
+       $("[data-test-id='notification'] .notification__content")
+               .shouldBe(visible, Duration.ofSeconds(15))
+               .should(exactText("Встреча успешно забронирована на " + date));
+   }
 
     @Test
     void shouldNotSendIfNameEmpty() {
@@ -319,16 +317,8 @@ public class AppCardDeliveryTest {
 
     @Test
     void shouldSetDateAuto() {
-        //С закомментированными строками AppVeyor фейлил тест, в intellij idea тест проходил.
-//        long dateWeek = LocalDate.now().atStartOfDay().plusDays(7).toEpochSecond(ZoneOffset.UTC);
-//        long megaDate = Long.parseLong(dateWeek - 10800 + "000");
-
         $("[data-test-id='city'] input").doubleClick().sendKeys("СА");
         $x("//*[contains(text(), 'Санкт-Петербург')]").click();
-
-//        $(".calendar-input__custom-control input").click();
-//        $("[data-day=" + "'"+megaDate+"'" + "]").click();
-
         $("[data-test-id='date'] button").click();
         LocalDate selected = LocalDate.now().plusDays(3);
         LocalDate required = LocalDate.now().plusDays(7);
@@ -342,7 +332,7 @@ public class AppCardDeliveryTest {
         $x("//*[contains(text(), 'Забронировать')]").click();
         $("[data-test-id='notification'] .notification__content")
                 .shouldBe(visible, Duration.ofSeconds(15))
-                .should(matchText("Встреча успешно забронирована на "));
+                .shouldHave(exactText("Встреча успешно забронирована на "+ required.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))));
     }
 
 }
